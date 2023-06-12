@@ -1,4 +1,4 @@
-const Nota = require('../src/models/nota');
+const Nota = require('../../../src/models/nota');
 
 describe('Calculo da média final', () => {
     test('a media é zero se não tem notas', () => {
@@ -33,3 +33,39 @@ describe('Calculo da média final', () => {
         expect(nota.mediaFinal()).toEqual(0.4 * 6 + 0.6 * 7);
     });
 });
+
+
+describe('Testes para a função mediaCA', () => {
+    let nota = new Nota()
+    test('Retorna "SS - Superior" para uma nota entre 9.0 e 10', () => {
+    
+      expect(nota.mediaCA(9.5)).toBe('SS - Superior');
+      expect(nota.mediaCA(10)).toBe('SS - Superior');
+    });
+  
+    test('Retorna "MS - Médio Superior" para uma nota entre 7.0 e 8.9', () => {
+      expect(nota.mediaCA(7.5)).toBe('MS - Médio Superior');
+      expect(nota.mediaCA(8.9)).toBe('MS - Médio Superior');
+    });
+  
+    test('Retorna "MM - Médio" para uma nota entre 5.0 e 6.9', () => {
+      expect(nota.mediaCA(5.5)).toBe('MM - Médio');
+      expect(nota.mediaCA(6.9)).toBe('MM - Médio');
+    });
+  
+    test('Retorna "MI - Médio Inferior" para uma nota entre 3.0 e 4.9', () => {
+      expect(nota.mediaCA(3.5)).toBe('MI - Médio Inferior');
+      expect(nota.mediaCA(4.9)).toBe('MI - Médio Inferior');
+    });
+  
+    test('Retorna "II - Inferior" para uma nota entre 0.1 e 2.9', () => {
+      expect(nota.mediaCA(1)).toBe('II - Inferior');
+      expect(nota.mediaCA(2.9)).toBe('II - Inferior');
+    });
+  
+    test('Retorna "Nota inválida" para uma nota fora das faixas válidas', () => {
+      expect(nota.mediaCA(11)).toBe('Nota inválida');
+      expect(nota.mediaCA(-1)).toBe('Nota inválida');
+    });
+  });
+  
